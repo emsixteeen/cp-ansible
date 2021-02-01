@@ -57,3 +57,5 @@
   loop:
     - openssl
     - unzip
+  when:
+    - hardened_env == false
