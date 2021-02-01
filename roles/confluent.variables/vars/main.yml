@@ -18,8 +18,6 @@ zookeeper_default_group: confluent
 zookeeper:
   server_start_file: "{{ binary_base_path }}/bin/zookeeper-server-start"
   config_file: "{{ archive_config_base_path if installation_method == 'archive' else '' }}/etc/kafka/zookeeper.properties"
-  systemd_file: /usr/lib/systemd/system/{{zookeeper_service_name}}.service
-  systemd_override: /etc/systemd/system/{{zookeeper_service_name}}.service.d/override.conf
 
 zookeeper_properties:
   defaults:

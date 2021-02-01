@@ -41,6 +41,8 @@
     comment: "Zookeeper User"
     system: true
     group: "{{zookeeper_group}}"
+  when:
+    - hardened_env == false
 
 # Archive File deployments need to create SystemD service units
 # Copy the tarball's systemd service to the system
@@ -192,7 +194,7 @@
     owner: "{{zookeeper_user}}"
     group: "{{zookeeper_group}}"
     state: directory
-    mode: 0640
+    mode: 0740
 
 - name: Write Service Overrides
   template:
@@ -215,6 +217,17 @@
     name: "{{zookeeper_service_name}}"
     enabled: true
     state: started
+  when:
+    - hardened_env == false
+
+- name: Zookeeper Service Started - User
+  systemd:
+    name: "{{zookeeper_service_name}}"
+    enabled: true
+    state: started
+    scope: user
+  when:
+    - hardened_env == true
 
 - name: Zookeeper Health Check
   include: health_check.yml

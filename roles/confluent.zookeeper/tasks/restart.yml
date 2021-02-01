@@ -4,6 +4,17 @@
     daemon_reload: true
     name: "{{zookeeper_service_name}}"
     state: restarted
+  when:
+    - hardened_env == false
+
+- name: Restart Zookeeper Service - User
+  systemd:
+    daemon_reload: true
+    name: "{{zookeeper_service_name}}"
+    state: restarted
+    scope: user
+  when:
+    - hardened_env == true
 
 - name: Zookeeper Health Check
   include: health_check.yml
