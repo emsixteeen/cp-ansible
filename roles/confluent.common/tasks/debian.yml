@@ -10,6 +10,8 @@
   shell: apt-get install apt-transport-https -y --force-yes
   args:
     warn: false
+  when:
+    hardened_env == false
 
 - name: Add Confluent Apt Key
   apt_key:
@@ -126,3 +128,5 @@
     - openssl
     - unzip
     - curl
+  when:
+    - hardened_env == false
