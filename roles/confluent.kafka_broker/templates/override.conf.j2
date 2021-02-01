@@ -5,7 +5,11 @@
 # If there is an ExecStart override then we need to clear the ExecStart list first
 ExecStart=
 {% endif %}
+{% if (key == 'User' or key == 'Group') and hardened_env == true %}
+{{key}}=
+{% else %}
 {{key}}={{value}}
+{% endif %}
 {% endif %}
 {% endfor %}
 {% for key, value in kafka_broker_service_environment_overrides.items() %}
@@ -13,3 +17,8 @@ ExecStart=
 Environment="{{key}}={{value}}"
 {% endif %}
 {% endfor %}
+{% if hardened_env == true %}
+[Install]
+WantedBy=
+WantedBy=default.target
+{% endif %}

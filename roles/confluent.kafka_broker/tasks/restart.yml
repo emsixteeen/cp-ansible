@@ -4,6 +4,17 @@
     daemon_reload: true
     name: "{{kafka_broker_service_name}}"
     state: restarted
+  when:
+    - hardened_env == false
+
+- name: Restart Kafka - User
+  systemd:
+    daemon_reload: true
+    name: "{{kafka_broker_service_name}}"
+    state: restarted
+    scope: user
+  when:
+    - hardened_env == true
 
 - name: Wait for Health Checks to Complete
   include_tasks: health_check.yml

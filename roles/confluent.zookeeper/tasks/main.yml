@@ -3,6 +3,10 @@
     name: confluent.common
   when: not common_role_completed|bool
 
+- name: Print Variables
+  debug:
+    var: zookeeper
+
 - name: Gather OS Facts
   setup:
     # Only gathers items in list, filters out the rest

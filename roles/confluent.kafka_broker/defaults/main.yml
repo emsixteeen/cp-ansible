@@ -62,3 +62,5 @@ kafka_broker:
   metadata_appender_log_name: metadata.log
   metadata_appender_max_log_files: 10
   metadata_appender_log_file_size: 100mb
+  systemd_file: /usr/lib/systemd/system/{{kafka_broker_service_name}}.service
+  systemd_override: /etc/systemd/system/{{kafka_broker_service_name}}.service.d/override.conf
