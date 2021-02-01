@@ -48,6 +48,16 @@
   when:
     - hardened_env == false
 
+- name: Ensure SystemD directory exists - User
+  file:
+    path: "{{zookeeper.systemd_file | dirname}}"
+    owner: "{{zookeeper_user}}"
+    group: "{{zookeeper_group}}"
+    state: directory
+    mode: 0740
+  when:
+    - hardened_env == true
+
 # Archive File deployments need to create SystemD service units
 # Copy the tarball's systemd service to the system
 - name: Copy Zookeeper Service from archive file to system
